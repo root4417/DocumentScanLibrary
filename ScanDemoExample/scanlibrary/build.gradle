@@ -2,10 +2,11 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     buildToolsVersion "29.0.3"
-    ndkVersion "21.1.6352462"
-    
+    //ndkVersion "21.1.6352462"
+    ndkVersion "22.1.7171670"
+
     // Needed for jitpack builds
     packagingOptions {
         doNotStrip '*/mips/*.so'
@@ -14,13 +15,16 @@ android {
 
     defaultConfig {
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
         ndk
                 {
                     moduleName "Scanner"
                 }
+        manifestPlaceholders = [
+                fileProviderAuthority: "${applicationId}.fileprovider"
+        ]
     }
     sourceSets.main
             {
@@ -33,7 +37,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    
+
 }
 
 dependencies {

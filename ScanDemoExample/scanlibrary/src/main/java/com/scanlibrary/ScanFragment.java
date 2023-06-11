@@ -31,7 +31,6 @@ import java.util.Map;
  */
 public class ScanFragment extends Fragment {
 
-    private Button scanButton;
     private ImageView sourceImageView;
     private FrameLayout sourceFrame;
     private PolygonView polygonView;
@@ -62,7 +61,7 @@ public class ScanFragment extends Fragment {
 
     private void init() {
         sourceImageView = (ImageView) view.findViewById(R.id.sourceImageView);
-        scanButton = (Button) view.findViewById(R.id.scanButton);
+        Button scanButton = (Button) view.findViewById(R.id.scanButton);
         if (getActivity().getIntent().getStringExtra(ScanConstants.SCAN_NEXT_TEXT) != null) {
             scanButton.setText(getActivity().getIntent().getStringExtra(ScanConstants.SCAN_NEXT_TEXT));
         }

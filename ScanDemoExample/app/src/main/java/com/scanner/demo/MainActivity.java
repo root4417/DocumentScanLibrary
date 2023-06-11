@@ -23,9 +23,6 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private static final int REQUEST_CODE = 99;
-    private Button scanButton;
-    private Button cameraButton;
-    private Button mediaButton;
     private ImageView scannedImageView;
 
     @Override
@@ -36,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        scanButton = (Button) findViewById(R.id.scanButton);
+        Button scanButton = (Button) findViewById(R.id.scanButton);
         scanButton.setOnClickListener(new ScanButtonClickListener());
-        cameraButton = (Button) findViewById(R.id.cameraButton);
+        Button cameraButton = (Button) findViewById(R.id.cameraButton);
         cameraButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_CAMERA));
-        mediaButton = (Button) findViewById(R.id.mediaButton);
+        Button mediaButton = (Button) findViewById(R.id.mediaButton);
         mediaButton.setOnClickListener(new ScanButtonClickListener(ScanConstants.OPEN_MEDIA));
         scannedImageView = (ImageView) findViewById(R.id.scannedImage);
     }

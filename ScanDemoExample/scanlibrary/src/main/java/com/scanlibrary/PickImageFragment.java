@@ -13,16 +13,16 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import java.io.File;
 import java.io.IOException;
@@ -133,7 +133,7 @@ public class PickImageFragment extends Fragment {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 String fileProviderAuthority = getContext().getApplicationContext().getPackageName() + ".fileprovider";
 
-                Uri tempFileUri = FileProvider.getUriForFile(getActivity().getApplicationContext(),
+                Uri tempFileUri = CustomFileProvider.getUriForFile(getActivity().getApplicationContext(),
                         fileProviderAuthority, // As defined in Manifest
                         file);
                 cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);

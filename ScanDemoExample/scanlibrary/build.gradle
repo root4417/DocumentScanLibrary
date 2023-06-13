@@ -23,7 +23,7 @@ android {
                     moduleName "Scanner"
                 }
         manifestPlaceholders = [
-                fileProviderAuthority: "${applicationId}.fileprovider"
+                fileProviderAuthority: "com.scanlibrary.fileprovider"
         ]
     }
     sourceSets.main

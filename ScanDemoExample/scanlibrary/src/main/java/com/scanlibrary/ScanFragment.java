@@ -245,7 +245,10 @@ public class ScanFragment extends Fragment {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            bitmap.recycle();
+            if(bitmap!=null && !bitmap.isRecycled()){
+                //bitmap.recycle();
+            }
+
             dismissDialog();
         }
     }

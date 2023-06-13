@@ -125,7 +125,10 @@ public class ResultFragment extends Fragment {
                         Uri uri = Utils.getUri(getActivity(), bitmap);
                         data.putExtra(ScanConstants.SCANNED_RESULT, uri);
                         getActivity().setResult(Activity.RESULT_OK, data);
-                        original.recycle();
+                        if(original !=null && !original.isRecycled()){
+                            //original.recycle();
+                        }
+
                         System.gc();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override

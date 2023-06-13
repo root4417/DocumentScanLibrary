@@ -224,7 +224,9 @@ public class PickImageFragment extends Fragment {
 
     protected void postImagePick(Bitmap bitmap) {
         Uri uri = Utils.getUri(getActivity(), bitmap);
-        bitmap.recycle();
+        if(!bitmap.isRecycled()){
+            //bitmap.recycle();
+        }
         scanner.onBitmapSelect(uri);
     }
 

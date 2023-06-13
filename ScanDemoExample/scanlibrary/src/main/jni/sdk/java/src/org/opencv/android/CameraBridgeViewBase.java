@@ -373,8 +373,8 @@ public abstract class CameraBridgeViewBase extends SurfaceView implements Surfac
 
     private void onExitStartedState() {
         disconnectCamera();
-        if (mCacheBitmap != null) {
-            mCacheBitmap.recycle();
+        if (mCacheBitmap != null && !mCacheBitmap.isRecycled()) {
+            //mCacheBitmap.recycle();
         }
     }
 

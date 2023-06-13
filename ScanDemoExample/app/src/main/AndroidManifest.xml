@@ -13,6 +13,8 @@
     <application
         android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
+        android:largeHeap="true"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/ic_launcher"
         android:theme="@style/AppTheme" >
         <activity

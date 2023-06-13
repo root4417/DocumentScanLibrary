@@ -92,12 +92,17 @@ public class PickImageFragment extends Fragment {
 
     private boolean isIntentPreferenceSet() {
         int preference = getArguments().getInt(ScanConstants.OPEN_INTENT_PREFERENCE, 0);
-        return preference != 0;
+        String fileProviderAuthority = getArguments().getString(ScanConstants.FILE_PROVIDER_AUTHORITY);
+        return preference != 0 && fileProviderAuthority !=null;
     }
 
     private int getIntentPreference() {
-        int preference = getArguments().getInt(ScanConstants.OPEN_INTENT_PREFERENCE, 0);
-        return preference;
+        return getArguments().getInt(ScanConstants.OPEN_INTENT_PREFERENCE, 0);
+    }
+
+
+    private String getIntentFileProviderAuthority() {
+        return getArguments().getString(ScanConstants.FILE_PROVIDER_AUTHORITY);
     }
 
 
@@ -127,20 +132,22 @@ public class PickImageFragment extends Fragment {
         camorgal = 0;
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            String fileProviderAuthority = getIntentFileProviderAuthority();
             File file = createImageFile();
             boolean isDirectoryCreated = file.getParentFile().mkdirs();
             Log.d("", "openCamera: isDirectoryCreated: " + isDirectoryCreated);
+            Uri tempFileUri;
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                String fileProviderAuthority = getContext().getApplicationContext().getPackageName() + ".fileprovider";
+//                String fileProviderAuthority = getContext().getApplicationContext().getPackageName() + "
+//                 .fileprovider";
+                tempFileUri = CustomFileProvider.getUriForFile(getActivity().getApplicationContext(),
+                        fileProviderAuthority, file);
 
-                Uri tempFileUri = CustomFileProvider.getUriForFile(getActivity().getApplicationContext(),
-                        fileProviderAuthority, // As defined in Manifest
-                        file);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
+
             } else {
-                Uri tempFileUri = Uri.fromFile(file);
-                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
+                tempFileUri = Uri.fromFile(file);
             }
+            cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, tempFileUri);
             startActivityForResult(cameraIntent, ScanConstants.START_CAMERA_REQUEST_CODE);
         } else {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, MY_CAMERA_REQUEST_CODE);

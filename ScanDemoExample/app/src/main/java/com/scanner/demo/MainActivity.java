@@ -28,8 +28,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        init();
+        if (isIntentFileProviderAuthoritySet()) {
+            setContentView(R.layout.activity_main);
+            init();
+        } else {
+            this.finish();
+        }
+
+    }
+
+    private boolean isIntentFileProviderAuthoritySet() {
+        String fileProviderAuthority = getIntent().getStringExtra(ScanConstants.FILE_PROVIDER_AUTHORITY);
+        return fileProviderAuthority !=null;
+    }
+    private String getIntentFileProviderAuthority() {
+        return getIntent().getStringExtra(ScanConstants.FILE_PROVIDER_AUTHORITY);
     }
 
     private void init() {
@@ -62,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
     protected void startScan(int preference) {
         Intent intent = new Intent(this, ScanActivity.class);
         intent.putExtra(ScanConstants.OPEN_INTENT_PREFERENCE, preference);
+        if(getIntentFileProviderAuthority() !=null){
+            intent.putExtra(ScanConstants.FILE_PROVIDER_AUTHORITY, getIntentFileProviderAuthority());
+        }else{
+            intent.putExtra(ScanConstants.FILE_PROVIDER_AUTHORITY, getApplicationContext().getPackageName()+".fileprovider");
+        }
+
         startActivityForResult(intent, REQUEST_CODE);
     }
 

@@ -1,3 +1,13 @@
+# How to Run Locally
+add this in your Configuration of android studio
+-e fileProviderAuthority com.scanner.demo.fileprovider 
+
+or 
+
+From Terminal
+adb shell am start -n com.scanner.demo/com.scanner.demo.MainActivity -e fileProviderAuthority com.scanner.demo.
+fileprovider
+
 # ScanLibrary
 ScanLibrary is an android document scanning library built on top of OpenCV, using the app you will be able to select the exact edges and crop the document accordingly from the selected 4 edges and change the perspective transformation of the cropped image.
 

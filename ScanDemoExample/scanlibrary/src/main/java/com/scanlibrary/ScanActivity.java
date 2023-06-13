@@ -32,11 +32,15 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.scan_layout);
-        if(getActionBar() != null){
-            getActionBar().hide();
+        if (isIntentFileProviderAuthoritySet()) {
+            setContentView(R.layout.scan_layout);
+            if(getActionBar() != null){
+                getActionBar().hide();
+            }
+            checkPermissions();
+        } else {
+            this.finish();
         }
-        checkPermissions();
     }
 
     private boolean checkPermissions() {
@@ -70,12 +74,21 @@ public class ScanActivity extends Activity implements IScanner, ComponentCallbac
         Bundle bundle = new Bundle();
         bundle.putInt(ScanConstants.OPEN_INTENT_PREFERENCE, getPreferenceContent());
         bundle.putInt("quality", getIntent().getIntExtra("quality", 1));
+        bundle.putString(ScanConstants.FILE_PROVIDER_AUTHORITY, getIntentFileProviderAuthority());
         fragment.setArguments(bundle);
         android.app.FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.content, fragment);
         fragmentTransaction.commit();
     }
+    private boolean isIntentFileProviderAuthoritySet() {
+        String fileProviderAuthority = getIntent().getStringExtra(ScanConstants.FILE_PROVIDER_AUTHORITY);
+        return fileProviderAuthority !=null;
+    }
+    private String getIntentFileProviderAuthority() {
+        return getIntent().getStringExtra(ScanConstants.FILE_PROVIDER_AUTHORITY);
+    }
+
 
     protected int getPreferenceContent() {
         return getIntent().getIntExtra(ScanConstants.OPEN_INTENT_PREFERENCE, 0);

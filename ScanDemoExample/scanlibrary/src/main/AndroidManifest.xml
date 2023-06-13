@@ -23,7 +23,7 @@
             android:label="@string/app_name">
         </activity>
 
-        <provider
+        <!--<provider
             android:name="com.scanlibrary.CustomFileProvider"
             android:authorities="${fileProviderAuthority}"
             android:exported="false"
@@ -32,7 +32,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
-        </provider>
+        </provider>-->
     </application>
 
 </manifest>

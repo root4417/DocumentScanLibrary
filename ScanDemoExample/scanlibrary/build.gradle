@@ -17,14 +17,12 @@ android {
         minSdkVersion 19
         targetSdkVersion 33
         versionCode 1
-        versionName "1.5"
+        versionName "1.6"
         ndk
                 {
                     moduleName "Scanner"
                 }
-        manifestPlaceholders = [
-                fileProviderAuthority: "com.scanner.demo.fileprovider"
-        ]
+
     }
     sourceSets.main
             {

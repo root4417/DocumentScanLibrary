@@ -91,6 +91,7 @@ public class PickImageFragment extends Fragment {
     }
 
     private boolean isIntentPreferenceSet() {
+        //int preference = getArguments().getInt(ScanConstants.OPEN_INTENT_PREFERENCE, 0);
         int preference = getArguments().getInt(ScanConstants.OPEN_INTENT_PREFERENCE, 0);
         String fileProviderAuthority = getArguments().getString(ScanConstants.FILE_PROVIDER_AUTHORITY);
         return preference != 0 && fileProviderAuthority !=null;
